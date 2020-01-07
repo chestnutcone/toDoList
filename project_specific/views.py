@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from tasks.models import Task, Status
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse
 import json
-import datetime
+from django.views.decorators.csrf import csrf_exempt
 from dateutil.parser import parse
 
 # Create your views here.
+@csrf_exempt
 def main_view(request):
     if request.method == "GET":
         tasks = Task.aggregate_json_format(Task.objects.all())
